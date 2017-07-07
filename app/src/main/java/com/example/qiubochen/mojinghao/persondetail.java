@@ -50,7 +50,7 @@ public class persondetail extends AppCompatActivity {
         });
         detailThread deThread=new detailThread();
         deThread.start();
-        SimpleAdapter simpleAdapter=new SimpleAdapter(this,deThread.getList(),R.layout.persondetail_item,new String[]{"name","num","sell","value"},new int[]{R.id.persondetail_item_name,R.id.persondetail_item_num,R.id.persondetail_item_sell,R.id.persondetail_item_value});
+        SimpleAdapter simpleAdapter=new SimpleAdapter(this,deThread.getList(),R.layout.persondetail_item,new String[]{"name","num","value","sell"},new int[]{R.id.persondetail_item_name,R.id.persondetail_item_num,R.id.persondetail_item_sell,R.id.persondetail_item_value});
         ListView listView=(ListView)findViewById(R.id.persondetail_listview);//listview的排布
         listView.setAdapter(simpleAdapter);//设置adapter
     }
@@ -101,8 +101,8 @@ public class persondetail extends AppCompatActivity {
 
 
                             peDetailNews.setGoodsname(jsO.getString("goodsname"));
-                            peDetailNews.setGoodsnum(jsO.getInt("goodssell"));
-                            peDetailNews.setGoodssell(jsO.getInt("goodsnum"));
+                            peDetailNews.setGoodssell(jsO.getInt("goodssell"));
+                            peDetailNews.setGoodsnum(jsO.getInt("goodsnum"));
                             peDetailNews.setGoodsvalue(jsO.getInt("goodsvalue"));
                             listitem.put("name",peDetailNews.getGoodsname());
                             listitem.put("num",peDetailNews.getGoodsnum());
