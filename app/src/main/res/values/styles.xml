@@ -10,4 +10,5 @@
     <style name="Mystyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTitleSize">60dp</item>
     </style>
+    
 </resources>

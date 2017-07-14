@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.yalantis.phoenix.PullToRefreshView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +19,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -29,7 +32,8 @@ import java.util.Map;
 public class persondetail extends AppCompatActivity {
     private Toolbar detailTool;
     String TAG = "persondetail";
-
+    Intent getId;
+    String strId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +52,35 @@ public class persondetail extends AppCompatActivity {
             }
 
         });
-        detailThread deThread=new detailThread();
+        getId=getIntent();
+        strId=getId.getStringExtra("perId");
+        Log.d(TAG,strId);
+        detailThread deThread=new detailThread(strId);
         deThread.start();
-        SimpleAdapter simpleAdapter=new SimpleAdapter(this,deThread.getList(),R.layout.persondetail_item,new String[]{"name","num","value","sell"},new int[]{R.id.persondetail_item_name,R.id.persondetail_item_num,R.id.persondetail_item_sell,R.id.persondetail_item_value});
-        ListView listView=(ListView)findViewById(R.id.persondetail_listview);//listview的排布
-        listView.setAdapter(simpleAdapter);//设置adapter
-    }
+        AdapterDealMeth(deThread);
+        final PullToRefreshView mPullToRefreshView=(PullToRefreshView)findViewById(R.id.pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshView.setRefreshing(false);
+                        detailThread dt=new detailThread(strId);
+                        dt.start();
+                        AdapterDealMeth(dt);
 
+                    }
+                }, 500);
+            }
+        });
+
+    }
+  void AdapterDealMeth(detailThread dt){
+      SimpleAdapter simpleAdapter=new SimpleAdapter(this,dt.getList(),R.layout.persondetail_item,new String[]{"name","num","value","sell"},new int[]{R.id.persondetail_item_name,R.id.persondetail_item_num,R.id.persondetail_item_sell,R.id.persondetail_item_value});
+      ListView listView=(ListView)findViewById(R.id.persondetail_listview);//listview的排布
+      listView.setAdapter(simpleAdapter);//设置adapter
+  }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolba, menu);
@@ -64,7 +90,10 @@ public class persondetail extends AppCompatActivity {
     class detailThread extends Thread {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-
+        String strId;
+        detailThread(String str){
+            strId=str;
+        }
         @Override
         public void run() {
             try {
@@ -78,6 +107,11 @@ public class persondetail extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setRequestMethod("GET");//用get的方式来建立连接
                 httpURLConnection.setRequestProperty("Charset", "UTF-8");//格式为中文
+                OutputStream outputStream=httpURLConnection.getOutputStream();
+                outputStream.write(strId.getBytes());
+                Log.d(TAG,"personId"+strId);
+                outputStream.flush();
+                outputStream.close();
                 if (httpURLConnection.getResponseCode() == 200) {//观察是否可以连接，可以的话返回200
                     Log.d(TAG, "onCreate: sada");
                     InputStream is = httpURLConnection.getInputStream();

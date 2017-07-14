@@ -52,6 +52,7 @@ public class createDeal extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setUseCaches(false);
                 httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                 OutputStream oos = httpURLConnection.getOutputStream();
                 String jsonstr=jsonObject.toString();

@@ -70,11 +70,11 @@ public class createPeron extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setUseCaches(false);
                 httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                 OutputStream oos = httpURLConnection.getOutputStream();
 //                BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(oos));
                 String jsonstr=st.toString();
-                Log.d(TAG, "run: "+jsonstr);
 
                 oos.write(jsonstr.getBytes());
                 oos.flush();
@@ -91,6 +91,7 @@ public class createPeron extends AppCompatActivity {
                 if(httpURLConnection.getResponseCode()==200) {
                     System.out.println("dopost请求成功");
                     //httpURLConnection.setReadTimeout(3000);
+
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

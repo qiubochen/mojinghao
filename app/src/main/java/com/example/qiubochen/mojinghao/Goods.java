@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.yalantis.phoenix.PullToRefreshView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,13 +61,34 @@ public class Goods extends AppCompatActivity {
 //        gooditem1.put("sale","12");
 //        gooditem1.put("account","133");
 //        goodsli.add(gooditem1);
-        goodsThread goodsthread = new goodsThread();
+        final goodsThread goodsthread = new goodsThread();
         goodsthread.start();
-        SimpleAdapter simpleAdapter=new SimpleAdapter(this,goodsthread.getList(),R.layout.goods_listitem,new String[]{"name","value","sum"},new int[]{R.id.goodsname,R.id.goodsvalue,R.id.goodssum});
-        ListView goodlistview=(ListView)findViewById(R.id.goods_listview);
-        goodlistview.setAdapter(simpleAdapter);//设置listview
-    }
+        AdapterGoodsMeth(goodsthread);
+        final PullToRefreshView mPullToRefreshView=(PullToRefreshView)findViewById(R.id.pull_to_refresh);
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshView.setRefreshing(false);
 
+                       goodsThread gt=new goodsThread();
+                        gt.start();
+                        AdapterGoodsMeth(gt);
+
+                    }
+                }, 500);
+            }
+        });
+
+
+    }
+     void AdapterGoodsMeth(goodsThread gt){
+         SimpleAdapter simpleAdapter=new SimpleAdapter(this,gt.getList(),R.layout.goods_listitem,new String[]{"name","value","sum"},new int[]{R.id.goodsname,R.id.goodsvalue,R.id.goodssum});
+         ListView goodlistview=(ListView)findViewById(R.id.goods_listview);
+         goodlistview.setAdapter(simpleAdapter);//设置listview
+     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolba,menu);

@@ -28,5 +28,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.yalantis:phoenix:1.2.3'
     testCompile 'junit:junit:4.12'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
 }

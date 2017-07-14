@@ -6,63 +6,88 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.qiubochen.mojinghao.personsearch">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@mipmap/headerbackground">
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/Petoolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimaryDark"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+   <android.support.constraint.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="80dp"
+
+       android:elevation="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="horizontal"
-        >
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="名字"
-            android:textSize="20dp"
-            />
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
+
         <EditText
+            android:id="@+id/personName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/personName"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
-            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
-            />
         <EditText
+            android:id="@+id/personId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/personId"
             android:layout_weight="1"
+
             />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/shape"
             android:text="搜索"
-            />
+            android:textColor="#ffffff"
+            android:id="@+id/btnsort"/>
     </LinearLayout>
-   <LinearLayout
+
+   </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:orientation="horizontal">
+       android:orientation="horizontal"
+        android:elevation="10dp">
        <TextView
            android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:layout_weight="1"
+
            android:text="人名"/>
        <TextView
            android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:layout_weight="1"
+
            android:text="ID"/>
        <TextView
            android:layout_width="0dp"
@@ -74,19 +99,20 @@
            android:layout_height="wrap_content"
            android:layout_weight="1"
            android:text="余额"/>
-       <Button
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           android:text="详细交易"
-           android:id="@+id/btnforpersondetail"/>
+
    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/peli">
+        <com.yalantis.phoenix.PullToRefreshView
+            android:id="@+id/pull_to_refresh"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/personsearch_listview"></ListView>
+        </com.yalantis.phoenix.PullToRefreshView>
     </LinearLayout>
 </LinearLayout>

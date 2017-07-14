@@ -6,44 +6,73 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.qiubochen.mojinghao.persondetail">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@mipmap/headerbackground2">
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/deToolBar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimaryDark"
+
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+       >
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:layout_editor_absoluteX="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginTop="8dp">
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="物品名"></TextView>
+        android:text="物品名"
+        android:textColor="#ffffff"
+        android:textSize="20dp"></TextView>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="单价"></TextView>
+        android:text="单价"
+        android:textColor="#ffffff"
+        android:textSize="20dp"></TextView>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="数量"></TextView>
+        android:text="数量"
+        android:textColor="#ffffff"
+        android:textSize="20dp"></TextView>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="总价"></TextView>
+        android:text="总价"
+        android:textColor="#ffffff"
+        android:textSize="20dp"></TextView>
 </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <com.yalantis.phoenix.PullToRefreshView
+            android:id="@+id/pull_to_refresh"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/persondetail_listview"></ListView>
+        </com.yalantis.phoenix.PullToRefreshView>
     </LinearLayout>
 </LinearLayout>
